@@ -1,0 +1,81 @@
+# ~/.config/starship.toml
+# Minimal Starship Configuration - Corporate Mix Theme
+# Clean prompt: user@host ~/directory $
+
+# Global prompt configuration - minimal elements only
+format = """
+$username\
+$hostname\
+$directory\
+$jobs\
+$battery\
+$status\
+$character"""  # Removed trailing space here
+
+add_newline = false  # No blank line between commands
+
+# Timeout for commands (milliseconds)
+command_timeout = 500
+
+# Directory module - always shown
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+format = "[](fg:#9BA3AF)[:](fg:#9BA3AF)[$path]($style)"  # Grey colon
+style = "fg:#6B9BD2"  # Professional blue
+read_only = " 🔒"
+truncation_symbol = "…/"
+disabled = false
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+# Character - prompt symbol
+[character]
+success_symbol = "[❯](fg:#9BA3AF)"  # Professional grey
+error_symbol = "[❯](fg:#FF6B6B)"  # Red for errors
+vimcmd_symbol = "[❮](fg:#9BA3AF)"  # Professional grey
+format = "$symbol "  # Explicitly set format with single space
+
+# Username - only show when not your usual user
+[username]
+style_user = "fg:#5A7A9A"  # Dark slate blue
+style_root = "fg:#FF6B6B"  # Red for root
+format = "[$user]($style)"  # User stays colored
+disabled = false
+show_always = true
+
+# Hostname - only show when SSH'd
+[hostname]
+ssh_only = true
+format = "[](fg:#9BA3AF)[@](fg:#9BA3AF)[$hostname]($style)"  # Grey @
+style = "fg:#8B95A1"  # Medium gray-blue
+disabled = false
+
+# Battery - only show when low
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡"
+discharging_symbol = "💀"
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 20
+style = "fg:#FF6B6B"  # Red warning
+
+# Jobs - background jobs indicator
+[jobs]
+symbol = "✦ "
+number_threshold = 1
+format = "[$symbol$number]($style) "
+style = "fg:#70B77E"  # Corporate green
+
+# Status - exit code of last command
+[status]
+style = "fg:#FF6B6B"  # Red
+symbol = "✖ "
+format = '[$symbol$status]($style) '
+disabled = true  # Enable if you want to see exit codes
